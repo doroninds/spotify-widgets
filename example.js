@@ -1,0 +1,89 @@
+const example = {
+    "timestamp": 1645827034156,
+    "context": null,
+    "progress_ms": 59676,
+    "item": {
+        "album": {
+            "album_type": "album",
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/4TS37lr3ZraUxBHS727sEp"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/4TS37lr3ZraUxBHS727sEp",
+                    "id": "4TS37lr3ZraUxBHS727sEp",
+                    "name": "LXST CXNTURY",
+                    "type": "artist",
+                    "uri": "spotify:artist:4TS37lr3ZraUxBHS727sEp"
+                }
+            ],
+            "available_markets": [],
+            "external_urls": {
+                "spotify": "https://open.spotify.com/album/5Mqoxc17guz7zb2UzmhZ37"
+            },
+            "href": "https://api.spotify.com/v1/albums/5Mqoxc17guz7zb2UzmhZ37",
+            "id": "5Mqoxc17guz7zb2UzmhZ37",
+            "images": [
+                {
+                    "height": 640,
+                    "url": "https://i.scdn.co/image/ab67616d0000b2734bfdb19883afd6de823353c8",
+                    "width": 640
+                },
+                {
+                    "height": 300,
+                    "url": "https://i.scdn.co/image/ab67616d00001e024bfdb19883afd6de823353c8",
+                    "width": 300
+                },
+                {
+                    "height": 64,
+                    "url": "https://i.scdn.co/image/ab67616d000048514bfdb19883afd6de823353c8",
+                    "width": 64
+                }
+            ],
+            "name": "UNIVERSE OF THE PAST",
+            "release_date": "2019-09-23",
+            "release_date_precision": "day",
+            "total_tracks": 10,
+            "type": "album",
+            "uri": "spotify:album:5Mqoxc17guz7zb2UzmhZ37"
+        },
+        "artists": [
+            {
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/artist/4TS37lr3ZraUxBHS727sEp"
+                },
+                "href": "https://api.spotify.com/v1/artists/4TS37lr3ZraUxBHS727sEp",
+                "id": "4TS37lr3ZraUxBHS727sEp",
+                "name": "LXST CXNTURY",
+                "type": "artist",
+                "uri": "spotify:artist:4TS37lr3ZraUxBHS727sEp"
+            }
+        ],
+        "available_markets": [],
+        "disc_number": 1,
+        "duration_ms": 166579,
+        "explicit": true,
+        "external_ids": {
+            "isrc": "QZHPJ1914788"
+        },
+        "external_urls": {
+            "spotify": "https://open.spotify.com/track/336ASHsxDakSN80bubkfZV"
+        },
+        "href": "https://api.spotify.com/v1/tracks/336ASHsxDakSN80bubkfZV",
+        "id": "336ASHsxDakSN80bubkfZV",
+        "is_local": false,
+        "name": "ODIUM",
+        "popularity": 0,
+        "preview_url": null,
+        "track_number": 1,
+        "type": "track",
+        "uri": "spotify:track:336ASHsxDakSN80bubkfZV"
+    },
+    "currently_playing_type": "track",
+    "actions": {
+        "disallows": {
+            "resuming": true
+        }
+    },
+    "is_playing": true
+}
