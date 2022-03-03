@@ -1,0 +1,3 @@
+
+GET https://api.spotify.com/v1/me/player/currently-playing
+Authorization: Bearer BQAxOvIb4Bb5kVTGYBt5Vk86c0SPKuoowCZWcBlPEMbNJgG3SwRP-R4u5EMyrOODV2tbUJyX5P_FFM5SpN8SBE85TpzIprfe7KtqIKikmzYNqMliiv1vnk_ZAfmvf10hjhTFALU810-z8FZvZ5B-DRuRdgx6275NOUfeMgAOaDbQ

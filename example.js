@@ -1,4 +1,4 @@
-const example = {
+const track = {
     "timestamp": 1645827034156,
     "context": null,
     "progress_ms": 59676,

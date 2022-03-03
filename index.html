@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0px;
+      }
+
+      .widget {
+        position: relative;
+        width: 1900px;
+        height: 640px;
+
+        background-image: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.7) 0 100%
+        );
+        background-size: cover;
+      }
+
+      #widget__preview {
+        display: inline-block;
+        top: 0;
+        position: absolute;
+        left: 0;
+        height: 640px;
+        width: 640px;
+      }
+
+      #widget__trackname {
+        font-size: 48pt;
+        display: inline;
+        position: absolute;
+        font-family: cursive;
+        padding: 7px;
+        top: 210px;
+        border-radius: 9px;
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 13px rgb(20 20 20);
+        color: #fff;
+        left: 660px;
+        width: 1200px;
+        text-align: center;
+        height: auto;
+      }
+
+      #widget__bar {
+        display: inline-block;
+        position: absolute;
+        border-radius: 25px;
+        bottom: 10px;
+        left: 650px;
+        width: 1240px;
+        height: 10px;
+        background: rgb(20, 20, 20, 1);
+        box-shadow: 0 0 13px rgb(20, 20, 20, 1);
+      }
+
+      #widget__bar-fill {
+        border-radius: 25px;
+        height: 10px;
+        width: 0px;
+        background: rgba(25, 255, 95, 1);
+        box-shadow: 0 0 13px rgba(25, 255, 95, 1);
+      }
+      #widget__status {
+        font-size: 22pt;
+        width: 35px;
+        height: 35px;
+        display: inline;
+        align-items: start;
+
+        padding: 20px;
+        left: 650px;
+        bottom: 40px;
+        font-weight: bolder;
+        position: absolute;
+        text-align: center;
+        border-radius: 100%;
+        color: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 0 0px rgb(20 20 20);
+        background: rgba(0, 0, 0, 0.8);
+        animation: playing 5s infinite;
+      }
+
+      @keyframes playing {
+        from {
+          box-shadow: 0 0 0px rgb(0, 0, 0, 1);
+        }
+
+        50% {
+          box-shadow: 0 0 25px rgb(0, 0, 0, 1);
+        }
+
+        to {
+          box-shadow: 0 0 0px rgb(0, 0, 0, 1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="widget">
+      <img src="" id="widget__preview" />
+      <div id="widget__trackname"></div>
+      <div id="widget__status">?</div>
+      <div id="widget__bar">
+        <div id="widget__bar-fill"></div>
+      </div>
+    </div>
+
+    <script>
+      setInterval(() => {
+        fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+          headers: {
+            Authorization:
+              "Bearer BQAxOvIb4Bb5kVTGYBt5Vk86c0SPKuoowCZWcBlPEMbNJgG3SwRP-R4u5EMyrOODV2tbUJyX5P_FFM5SpN8SBE85TpzIprfe7KtqIKikmzYNqMliiv1vnk_ZAfmvf10hjhTFALU810-z8FZvZ5B-DRuRdgx6275NOUfeMgAOaDbQ",
+          },
+        })
+          .then((response) => response.json())
+          .then((track) => {
+            const is_playing = track.is_playing;
+            const preview = track.item.album.images[0].url;
+            let progress =
+              (track.progress_ms / track.item.duration_ms) * 100 * 12.4;
+            document.querySelector("#widget__preview").src = preview;
+            document.querySelector("#widget__status").innerHTML = is_playing
+              ? "▶"
+              : "||";
+            document.querySelector(
+              "#widget__trackname"
+            ).innerHTML = `${track.item.artists[0].name}<br>${track.item.name}`;
+            console.log("progress", progress);
+            document.querySelector(
+              "#widget__bar-fill"
+            ).style.width = `${progress}px`;
+            document.querySelector(
+              ".widget"
+            ).style.backgroundImage = `linear-gradient(to right, rgb(255, 255, 255, .7) 0 100%), url(${preview})`;
+          });
+      }, 5000);
+    </script>
+  </body>
+</html>
