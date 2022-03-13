@@ -14,11 +14,7 @@
         position: relative;
         width: 1900px;
         height: 640px;
-
-        background-image: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0.7) 0 100%
-        );
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.7) 0 100%);
         background-size: cover;
       }
 
@@ -68,13 +64,12 @@
         box-shadow: 0 0 13px rgba(25, 255, 95, 1);
       }
       #widget__status {
-        font-size: 22pt;
-        width: 35px;
-        height: 35px;
+        font-size: 10pt;
+        width: 15px;
+        height: 15px;
         display: inline;
         align-items: start;
-
-        padding: 20px;
+        padding: 10px;
         left: 650px;
         bottom: 40px;
         font-weight: bolder;
@@ -84,7 +79,7 @@
         color: rgba(255, 255, 255, 0.95);
         box-shadow: 0 0 0px rgb(20 20 20);
         background: rgba(0, 0, 0, 0.8);
-        animation: playing 5s infinite;
+        animation: playing 2s infinite;
       }
 
       @keyframes playing {
@@ -92,8 +87,12 @@
           box-shadow: 0 0 0px rgb(0, 0, 0, 1);
         }
 
-        50% {
-          box-shadow: 0 0 25px rgb(0, 0, 0, 1);
+        10% {
+          box-shadow: 0 0 12px rgb(0, 0, 0, 1);
+        }
+
+        90% {
+          box-shadow: 0 0 12px rgb(0, 0, 0, 1);
         }
 
         to {
@@ -113,35 +112,41 @@
     </div>
 
     <script>
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      })
+
+      const apiUrl = 'https://api.spotify.com/v1/me/player/currently-playing'
+      const widget_width = 1240
+      let update_time = Math.abs(parseInt(params['updateTime'])) || 5 // seconds
+      document.querySelector('#widget__bar').style.width = `${widget_width}px`
+
       setInterval(() => {
-        fetch("https://api.spotify.com/v1/me/player/currently-playing", {
+        const authorization = `Bearer ${params['token']}`
+        fetch(apiUrl, {
           headers: {
-            Authorization:
-              "Bearer BQAxOvIb4Bb5kVTGYBt5Vk86c0SPKuoowCZWcBlPEMbNJgG3SwRP-R4u5EMyrOODV2tbUJyX5P_FFM5SpN8SBE85TpzIprfe7KtqIKikmzYNqMliiv1vnk_ZAfmvf10hjhTFALU810-z8FZvZ5B-DRuRdgx6275NOUfeMgAOaDbQ",
+            Authorization: authorization,
           },
         })
-          .then((response) => response.json())
+          .then((res) => res.json())
           .then((track) => {
-            const is_playing = track.is_playing;
-            const preview = track.item.album.images[0].url;
-            let progress =
-              (track.progress_ms / track.item.duration_ms) * 100 * 12.4;
-            document.querySelector("#widget__preview").src = preview;
-            document.querySelector("#widget__status").innerHTML = is_playing
-              ? "▶"
-              : "||";
+            const status = track.is_playing ? '▶' : '||'
+            const preview = track.item.album.images[0].url
+            const progress = (track.progress_ms / track.item.duration_ms) * widget_width
+
+            document.querySelector('#widget__preview').src = preview
+            document.querySelector('#widget__status').innerHTML = status
+            document.querySelector('#widget__bar-fill').style.width = `${progress}px`
+
             document.querySelector(
-              "#widget__trackname"
-            ).innerHTML = `${track.item.artists[0].name}<br>${track.item.name}`;
-            console.log("progress", progress);
+              '#widget__trackname'
+            ).innerHTML = `${track.item.artists[0].name}<br>${track.item.name}`
+
             document.querySelector(
-              "#widget__bar-fill"
-            ).style.width = `${progress}px`;
-            document.querySelector(
-              ".widget"
-            ).style.backgroundImage = `linear-gradient(to right, rgb(255, 255, 255, .7) 0 100%), url(${preview})`;
-          });
-      }, 5000);
+              '.widget'
+            ).style.backgroundImage = `linear-gradient(to right, rgb(255, 255, 255, .7) 0 100%), url(${preview})`
+          })
+      }, update_time * 1000)
     </script>
   </body>
 </html>
